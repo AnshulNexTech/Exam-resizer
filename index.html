@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ExamPhoto India – Free UPSC, SSC, IBPS Photo & Signature Resizer</title>
+  <meta name="description" content="Resize and compress photos and signatures for UPSC, SSC, IBPS, and RRB exams in seconds. 100% free, browser-based, and private." />
+  <style>
+    :root {
+      --primary: #1d4ed8;
+      --primary-hover: #1e40af;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --success: #15803d;
+      --success-bg: #dcfce7;
+      --warn: #b45309;
+      --warn-bg: #fef3c7;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; }
+    header { background: var(--primary); color: #fff; padding: 1.25rem 1rem; text-align: center; }
+    header h1 { font-size: 1.5rem; font-weight: 700; }
+    header p { font-size: 0.95rem; opacity: 0.9; margin-top: 0.25rem; }
+    .container { max-width: 900px; margin: 1.5rem auto; padding: 0 1rem; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+    label { display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--text); }
+    select, input[type="number"], input[type="range"] {
+      width: 100%; padding: 0.6rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; background: #fff;
+    }
+    .drop-zone {
+      border: 2px dashed #94a3b8; border-radius: 10px; padding: 2rem 1rem; text-align: center;
+      cursor: pointer; transition: 0.2s; background: #f1f5f9; margin-bottom: 1.25rem;
+    }
+    .drop-zone:hover { border-color: var(--primary); background: #eff6ff; }
+    .drop-zone input { display: none; }
+    .preview-area { display: none; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.25rem; border-top: 1px solid var(--border); padding-top: 1.25rem; }
+    @media (max-width: 640px) { .preview-area { grid-template-columns: 1fr; } }
+    .preview-box { border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; background: #fafafa; }
+    .preview-box img { max-width: 100%; max-height: 220px; border: 1px solid #cbd5e1; margin: 0.75rem 0; background: #fff; }
+    .badge { display: inline-block; padding: 0.25rem 0.6rem; border-radius: 999px; font-size: 0.8rem; font-weight: 600; }
+    .badge-ok { background: var(--success-bg); color: var(--success); }
+    .badge-warn { background: var(--warn-bg); color: var(--warn); }
+    .btn {
+      display: inline-block; width: 100%; padding: 0.85rem 1.25rem; background: var(--primary); color: #fff;
+      border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; margin-top: 0.75rem;
+    }
+    .btn:hover { background: var(--primary-hover); }
+    h2 { font-size: 1.25rem; margin-bottom: 0.75rem; color: var(--text); }
+    table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; font-size: 0.9rem; }
+    th, td { border: 1px solid var(--border); padding: 0.65rem; text-align: left; }
+    th { background: #f1f5f9; }
+    ul.checklist { padding-left: 1.25rem; color: var(--muted); }
+    ul.checklist li { margin-bottom: 0.4rem; }
+    footer { text-align: center; padding: 1.5rem 1rem; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 2rem; }
+    .privacy-note { font-size: 0.82rem; color: var(--success); text-align: center; margin-top: 0.5rem; font-weight: 500; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>ExamPhoto India</h1>
+  <p>Instant Photo & Signature Resizer for UPSC, SSC, IBPS & RRB Forms</p>
+</header>
+
+<div class="container">
+  <!-- Main Resizer Tool -->
+  <div class="card">
+    <div class="grid">
+      <div>
+        <label for="preset">1. Select Exam & Document Type</label>
+        <select id="preset">
+          <option value="upsc_photo">UPSC – Photo (350×350 px, 20–200 KB)</option>
+          <option value="upsc_sign">UPSC – Signature (350×350 px, 20–100 KB)</option>
+          <option value="ssc_photo">SSC – Photo (200×230 px, 20–50 KB)</option>
+          <option value="ssc_sign">SSC – Signature (140×60 px, 10–20 KB)</option>
+          <option value="ibps_photo">IBPS – Photo (200×230 px, 20–50 KB)</option>
+          <option value="ibps_sign">IBPS – Signature (140×60 px, 10–20 KB)</option>
+          <option value="custom">Custom Dimensions & Size</option>
+        </select>
+      </div>
+      <div>
+        <label for="widthInput">Width (px)</label>
+        <input type="number" id="widthInput" value="350" min="50" max="2000" />
+      </div>
+      <div>
+        <label for="heightInput">Height (px)</label>
+        <input type="number" id="heightInput" value="350" min="50" max="2000" />
+      </div>
+    </div>
+
+    <div class="grid">
+      <div>
+        <label for="targetKb">Target Max File Size (KB): <span id="targetKbLabel">100</span> KB</label>
+        <input type="range" id="targetKb" min="10" max="300" value="100" />
+      </div>
+      <div>
+        <label for="qualitySlider">Fine-Tune Quality: <span id="qualityLabel">85</span>%</label>
+        <input type="range" id="qualitySlider" min="10" max="100" value="85" />
+      </div>
+    </div>
+
+    <div class="drop-zone" id="dropZone">
+      <strong>2. Click here to upload your Photo or Signature</strong>
+      <p style="font-size: 0.85rem; color: #64748b; margin-top: 0.3rem;">Supports JPG, JPEG, PNG • Works instantly on mobile & desktop</p>
+      <input type="file" id="fileInput" accept="image/*" />
+    </div>
+    <p class="privacy-note">🔒 100% Private: Processing happens inside your browser. Your photos never leave your device.</p>
+
+    <div class="preview-area" id="previewArea">
+      <div class="preview-box">
+        <strong>Original Image</strong>
+        <img id="origPreview" alt="Original preview" />
+        <div id="origStats" style="font-size: 0.85rem; color: var(--muted);"></div>
+      </div>
+      <div class="preview-box">
+        <strong>Resized Exam Output</strong>
+        <img id="outPreview" alt="Resized preview" />
+        <div id="outStats" style="font-size: 0.85rem; margin-bottom: 0.4rem;"></div>
+        <span id="statusBadge" class="badge badge-ok">Ready</span>
+        <a id="downloadBtn" class="btn" download="photo.jpg">Download JPG</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEO Exam Rules Table -->
+  <div class="card">
+    <h2>Official Indian Exam Photo & Signature Rules (Quick Guide)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Exam</th>
+          <th>Photo Size & Dimensions</th>
+          <th>Signature Size & Dimensions</th>
+          <th>Required Filename</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>UPSC</strong></td>
+          <td>20 KB – 200 KB (min 350×350 px)</td>
+          <td>20 KB – 100 KB (min 350×350 px)</td>
+          <td><code>photo.jpg</code> / <code>signature.jpg</code></td>
+        </tr>
+        <tr>
+          <td><strong>SSC (CGL/CHSL)</strong></td>
+          <td>20 KB – 50 KB (3.5 cm × 4.5 cm)</td>
+          <td>10 KB – 20 KB (4.0 cm × 2.0 cm)</td>
+          <td>Any valid JPG/JPEG</td>
+        </tr>
+        <tr>
+          <td><strong>IBPS / SBI</strong></td>
+          <td>20 KB – 50 KB (200 × 230 px)</td>
+          <td>10 KB – 20 KB (140 × 60 px)</td>
+          <td>Any valid JPG/JPEG</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Form Rejection Checklist -->
+  <div class="card">
+    <h2>Avoid Form Rejection: 4 Quick Checks Before Uploading</h2>
+    <ul class="checklist">
+      <li><strong>Plain White Background:</strong> Stand against a light/white wall with even lighting and no shadows on your face.</li>
+      <li><strong>Black Ink Signature:</strong> Sign on clean white unruled paper using a dark black pen, then crop tightly around the signature.</li>
+      <li><strong>No Blur or Pixelation:</strong> If the file size is too small, slightly increase the quality slider above while staying within the KB range.</li>
+      <li><strong>Exact Filename:</strong> For UPSC forms, do not rename the downloaded <code>photo.jpg</code> or <code>signature.jpg</code> files.</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+  <p><strong>About ExamPhoto India:</strong> A free utility built to help Indian students and job applicants format exam documents accurately without uploading personal photos to third-party servers.</p>
+  <p style="margin-top: 0.4rem;">Privacy Policy: Zero server storage • Contact: support@examphoto.in</p>
+</footer>
+
+<canvas id="canvas" style="display:none;"></canvas>
+
+<script>
+  const presets = {
+    upsc_photo: { w: 350, h: 350, minKb: 20, maxKb: 200, target: 90, name: "photo.jpg" },
+    upsc_sign:  { w: 350, h: 350, minKb: 20, maxKb: 100, target: 50, name: "signature.jpg" },
+    ssc_photo:  { w: 200, h: 230, minKb: 20, maxKb: 50,  target: 35, name: "ssc_photo.jpg" },
+    ssc_sign:   { w: 140, h: 60,  minKb: 10, maxKb: 20,  target: 15, name: "ssc_signature.jpg" },
+    ibps_photo: { w: 200, h: 230, minKb: 20, maxKb: 50,  target: 35, name: "ibps_photo.jpg" },
+    ibps_sign:  { w: 140, h: 60,  minKb: 10, maxKb: 20,  target: 15, name: "ibps_signature.jpg" },
+    custom:     { w: 300, h: 300, minKb: 10, maxKb: 500, target: 80, name: "resized_image.jpg" }
+  };
+
+  let currentImg = null;
+  const presetEl = document.getElementById("preset");
+  const widthEl = document.getElementById("widthInput");
+  const heightEl = document.getElementById("heightInput");
+  const targetKbEl = document.getElementById("targetKb");
+  const targetKbLabel = document.getElementById("targetKbLabel");
+  const qualityEl = document.getElementById("qualitySlider");
+  const qualityLabel = document.getElementById("qualityLabel");
+  const dropZone = document.getElementById("dropZone");
+  const fileInput = document.getElementById("fileInput");
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+
+  presetEl.addEventListener("change", () => {
+    const p = presets[presetEl.value];
+    widthEl.value = p.w;
+    heightEl.value = p.h;
+    targetKbEl.value = p.target;
+    targetKbLabel.textContent = p.target;
+    document.getElementById("downloadBtn").download = p.name;
+    if (currentImg) processImage(true);
+  });
+
+  [widthEl, heightEl].forEach(el => el.addEventListener("input", () => { if (currentImg) processImage(false); }));
+  targetKbEl.addEventListener("input", () => {
+    targetKbLabel.textContent = targetKbEl.value;
+    if (currentImg) processImage(true);
+  });
+  qualityEl.addEventListener("input", () => {
+    qualityLabel.textContent = qualityEl.value;
+    if (currentImg) processImage(false);
+  });
+
+  dropZone.addEventListener("click", () => fileInput.click());
+  fileInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = new Image();
+      img.onload = () => {
+        currentImg = img;
+        document.getElementById("origPreview").src = ev.target.result;
+        document.getElementById("origStats").textContent = `${img.width}×${img.height} px • ${(file.size / 1024).toFixed(1)} KB`;
+        document.getElementById("previewArea").style.display = "grid";
+        processImage(true);
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  function processImage(autoFit) {
+    const w = parseInt(widthEl.value) || 350;
+    const h = parseInt(heightEl.value) || 350;
+    canvas.width = w;
+    canvas.height = h;
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, w, h);
+    ctx.drawImage(currentImg, 0, 0, w, h);
+
+    let q = parseInt(qualityEl.value) / 100;
+    let dataUrl = canvas.toDataURL("image/jpeg", q);
+    let sizeKb = Math.round((dataUrl.length * 3 / 4) / 1024 * 10) / 10;
+
+    if (autoFit) {
+      const target = parseInt(targetKbEl.value);
+      let minQ = 0.05, maxQ = 0.98;
+      for (let i = 0; i < 8; i++) {
+        q = (minQ + maxQ) / 2;
+        dataUrl = canvas.toDataURL("image/jpeg", q);
+        sizeKb = Math.round((dataUrl.length * 3 / 4) / 1024 * 10) / 10;
+        if (sizeKb > target) maxQ = q;
+        else minQ = q;
+      }
+      qualityEl.value = Math.round(q * 100);
+      qualityLabel.textContent = qualityEl.value;
+    }
+
+    const p = presets[presetEl.value];
+    const badge = document.getElementById("statusBadge");
+    if (sizeKb >= p.minKb && sizeKb <= p.maxKb) {
+      badge.className = "badge badge-ok";
+      badge.textContent = `Valid for ${presetEl.options[presetEl.selectedIndex].text.split("–")[0].trim()}`;
+    } else {
+      badge.className = "badge badge-warn";
+      badge.textContent = `Adjust slider (Needs ${p.minKb}–${p.maxKb} KB)`;
+    }
+
+    document.getElementById("outPreview").src = dataUrl;
+    document.getElementById("outStats").textContent = `${w}×${h} px • ${sizeKb} KB`;
+    const dl = document.getElementById("downloadBtn");
+    dl.href = dataUrl;
+    dl.download = p.name;
+  }
+</script>
+
+</body>
+</html>
