@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ExamPhoto India – Free UPSC, SSC, IBPS Photo & Signature Resizer</title>
-  <meta name="description" content="Resize and compress photos and signatures for UPSC, SSC, IBPS, and RRB exams in seconds. 100% free, browser-based, and private." />
+  <title>ExamPhoto India – Free UPSC, SSC, IBPS, NEET, JEE & RRB Photo Resizer</title>
+  <meta name="description" content="Resize and compress photos and signatures for UPSC, SSC, IBPS, RRB NTPC, NEET, JEE, and CUET exams in seconds. 100% free, browser-based, and private." />
+  <!-- PASTE GOOGLE SEARCH CONSOLE META TAG RIGHT BELOW THIS LINE -->
+
   <style>
     :root {
       --primary: #1d4ed8;
@@ -24,7 +26,7 @@
     header { background: var(--primary); color: #fff; padding: 1.25rem 1rem; text-align: center; }
     header h1 { font-size: 1.5rem; font-weight: 700; }
     header p { font-size: 0.95rem; opacity: 0.9; margin-top: 0.25rem; }
-    .container { max-width: 900px; margin: 1.5rem auto; padding: 0 1rem; }
+    .container { max-width: 920px; margin: 1.5rem auto; padding: 0 1rem; }
     .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
     label { display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--text); }
@@ -50,6 +52,7 @@
     }
     .btn:hover { background: var(--primary-hover); }
     h2 { font-size: 1.25rem; margin-bottom: 0.75rem; color: var(--text); }
+    .table-wrap { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; font-size: 0.9rem; }
     th, td { border: 1px solid var(--border); padding: 0.65rem; text-align: left; }
     th { background: #f1f5f9; }
@@ -63,7 +66,7 @@
 
 <header>
   <h1>ExamPhoto India</h1>
-  <p>Instant Photo & Signature Resizer for UPSC, SSC, IBPS & RRB Forms</p>
+  <p>Instant Photo & Signature Resizer for UPSC, SSC, IBPS, RRB, NEET, JEE & CUET</p>
 </header>
 
 <div class="container">
@@ -77,8 +80,12 @@
           <option value="upsc_sign">UPSC – Signature (350×350 px, 20–100 KB)</option>
           <option value="ssc_photo">SSC – Photo (200×230 px, 20–50 KB)</option>
           <option value="ssc_sign">SSC – Signature (140×60 px, 10–20 KB)</option>
-          <option value="ibps_photo">IBPS – Photo (200×230 px, 20–50 KB)</option>
-          <option value="ibps_sign">IBPS – Signature (140×60 px, 10–20 KB)</option>
+          <option value="ibps_photo">IBPS / SBI – Photo (200×230 px, 20–50 KB)</option>
+          <option value="ibps_sign">IBPS / SBI – Signature (140×60 px, 10–20 KB)</option>
+          <option value="rrb_photo">RRB NTPC / Group D – Photo (240×320 px, 20–50 KB)</option>
+          <option value="rrb_sign">RRB NTPC / Group D – Signature (140×60 px, 10–20 KB)</option>
+          <option value="nta_photo">NEET / JEE / CUET – Photo (200×230 px, 10–200 KB)</option>
+          <option value="nta_sign">NEET / JEE / CUET – Signature (140×60 px, 4–30 KB)</option>
           <option value="custom">Custom Dimensions & Size</option>
         </select>
       </div>
@@ -95,7 +102,7 @@
     <div class="grid">
       <div>
         <label for="targetKb">Target Max File Size (KB): <span id="targetKbLabel">100</span> KB</label>
-        <input type="range" id="targetKb" min="10" max="300" value="100" />
+        <input type="range" id="targetKb" min="5" max="300" value="100" />
       </div>
       <div>
         <label for="qualitySlider">Fine-Tune Quality: <span id="qualityLabel">85</span>%</label>
@@ -129,36 +136,50 @@
   <!-- SEO Exam Rules Table -->
   <div class="card">
     <h2>Official Indian Exam Photo & Signature Rules (Quick Guide)</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Exam</th>
-          <th>Photo Size & Dimensions</th>
-          <th>Signature Size & Dimensions</th>
-          <th>Required Filename</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>UPSC</strong></td>
-          <td>20 KB – 200 KB (min 350×350 px)</td>
-          <td>20 KB – 100 KB (min 350×350 px)</td>
-          <td><code>photo.jpg</code> / <code>signature.jpg</code></td>
-        </tr>
-        <tr>
-          <td><strong>SSC (CGL/CHSL)</strong></td>
-          <td>20 KB – 50 KB (3.5 cm × 4.5 cm)</td>
-          <td>10 KB – 20 KB (4.0 cm × 2.0 cm)</td>
-          <td>Any valid JPG/JPEG</td>
-        </tr>
-        <tr>
-          <td><strong>IBPS / SBI</strong></td>
-          <td>20 KB – 50 KB (200 × 230 px)</td>
-          <td>10 KB – 20 KB (140 × 60 px)</td>
-          <td>Any valid JPG/JPEG</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Exam</th>
+            <th>Photo Size & Dimensions</th>
+            <th>Signature Size & Dimensions</th>
+            <th>Required Filename</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>UPSC</strong></td>
+            <td>20 KB – 200 KB (min 350×350 px)</td>
+            <td>20 KB – 100 KB (min 350×350 px)</td>
+            <td><code>photo.jpg</code> / <code>signature.jpg</code></td>
+          </tr>
+          <tr>
+            <td><strong>SSC (CGL/CHSL)</strong></td>
+            <td>20 KB – 50 KB (3.5 cm × 4.5 cm)</td>
+            <td>10 KB – 20 KB (4.0 cm × 2.0 cm)</td>
+            <td>Any valid JPG/JPEG</td>
+          </tr>
+          <tr>
+            <td><strong>IBPS / SBI</strong></td>
+            <td>20 KB – 50 KB (200 × 230 px)</td>
+            <td>10 KB – 20 KB (140 × 60 px)</td>
+            <td>Any valid JPG/JPEG</td>
+          </tr>
+          <tr>
+            <td><strong>RRB NTPC / Group D</strong></td>
+            <td>20 KB – 50 KB (240 × 320 px)</td>
+            <td>10 KB – 20 KB (140 × 60 px)</td>
+            <td>Any valid JPG/JPEG</td>
+          </tr>
+          <tr>
+            <td><strong>NEET / JEE / CUET</strong></td>
+            <td>10 KB – 200 KB (Passport size)</td>
+            <td>4 KB – 30 KB (140 × 60 px)</td>
+            <td>Any valid JPG/JPEG</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <!-- Form Rejection Checklist -->
@@ -188,7 +209,11 @@
     ssc_sign:   { w: 140, h: 60,  minKb: 10, maxKb: 20,  target: 15, name: "ssc_signature.jpg" },
     ibps_photo: { w: 200, h: 230, minKb: 20, maxKb: 50,  target: 35, name: "ibps_photo.jpg" },
     ibps_sign:  { w: 140, h: 60,  minKb: 10, maxKb: 20,  target: 15, name: "ibps_signature.jpg" },
-    custom:     { w: 300, h: 300, minKb: 10, maxKb: 500, target: 80, name: "resized_image.jpg" }
+    rrb_photo:  { w: 240, h: 320, minKb: 20, maxKb: 50,  target: 35, name: "rrb_photo.jpg" },
+    rrb_sign:   { w: 140, h: 60,  minKb: 10, maxKb: 20,  target: 15, name: "rrb_signature.jpg" },
+    nta_photo:  { w: 200, h: 230, minKb: 10, maxKb: 200, target: 60, name: "nta_photo.jpg" },
+    nta_sign:   { w: 140, h: 60,  minKb: 4,  maxKb: 30,  target: 15, name: "nta_signature.jpg" },
+    custom:     { w: 300, h: 300, minKb: 5,  maxKb: 500, target: 80, name: "resized_image.jpg" }
   };
 
   let currentImg = null;
@@ -286,7 +311,4 @@
     dl.href = dataUrl;
     dl.download = p.name;
   }
-</script>
-
-</body>
-</html>
+</script
